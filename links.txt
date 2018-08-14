@@ -1,0 +1,2 @@
+Информация по справочникам
+https://learn.javascript.ru/pre-coding
