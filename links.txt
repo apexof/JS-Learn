@@ -1,2 +1,6 @@
 Информация по справочникам
 https://learn.javascript.ru/pre-coding
+ES5
+http://www.ecma-international.org/publications/standards/Ecma-262.htm
+Хороший справочник
+https://developer.mozilla.org/ru/
