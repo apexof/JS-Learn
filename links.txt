@@ -4,3 +4,4 @@ ES5
 http://www.ecma-international.org/publications/standards/Ecma-262.htm
 Хороший справочник
 https://developer.mozilla.org/ru/
+http://jshint.com/ - проверка стиля кода в веб интерфейсе
