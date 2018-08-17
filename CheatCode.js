@@ -22,5 +22,20 @@ function getDecimal(num) {
     str = str.slice(zeroPos);
     return +str;
 }
+// ~n = -(n+1)
+//Просто запомните: '~' читается как «не минус один»
+/*if (~str.indexOf("get")) {
+    alert( 'совпадение есть!' );
+}*/
+
+
+
+// проверка на пустоту объекта
+function isEmpty(obj) {
+    for (var key in obj) {
+        return false;
+    }
+    return true;
+}
 
 
