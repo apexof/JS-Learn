@@ -11,8 +11,10 @@
 
     /* исправьте этот код */
     function pow(x, n) {
-        if(n < 0) return NaN;
-        if(Math.round(n) != n) return NaN;
+        if(n < 0) return NaN; //Отрицательная степень
+        if(n === 0 && x !== 0) return 1; // Числа в нулевой степени
+        if(n === 0 && x === 0) return NaN; // Ноль в нулевой
+        if(Math.round(n) !== n) return NaN;
         var result = 1;
         for (var i = 0; i < n; i++) {
             result *= x;
