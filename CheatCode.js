@@ -39,3 +39,8 @@ function isEmpty(obj) {
 }
 
 
+//Проверка поддерживает ли браузер indexOf
+if ([].indexOf) {
+    //code}
+}
+
