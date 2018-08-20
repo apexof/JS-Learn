@@ -44,3 +44,17 @@ if ([].indexOf) {
     //code}
 }
 
+
+//Функция сортировки
+arr.sort(fn);
+function fn (a, b) {
+    return a - b; // сортировка по возрастанию, b-a по убыванию
+}
+//или
+function fn1(a, b) {
+    if (a > b) return 1;
+    if (a < b) return -1;
+}
+
+//join склеивает массив в строку
+new Array(4).join("ля"); // ляляля. Код для повторения симвоолов
