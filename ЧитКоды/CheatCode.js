@@ -58,3 +58,24 @@ function fn1(a, b) {
 
 //join склеивает массив в строку
 new Array(4).join("ля"); // ляляля. Код для повторения симвоолов
+
+
+//////////////////////// Счетчик........
+function makeCounter() {
+    var currentCount = 1;
+
+    return function() { // (**)
+        return currentCount++;
+    };
+}
+
+var counter = makeCounter(); // (*)
+
+// каждый вызов увеличивает счётчик и возвращает результат
+alert( counter() ); // 1
+alert( counter() ); // 2
+alert( counter() ); // 3
+
+// создать другой счётчик, он будет независим от первого
+var counter2 = makeCounter();
+alert( counter2() ); // 1

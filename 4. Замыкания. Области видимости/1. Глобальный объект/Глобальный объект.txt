@@ -1,0 +1,9 @@
+В браузере глобальный объект это window, в node JS уже нет.
+var a = 5; // объявление var создаёт свойство window.a
+alert( window.a ); // 5
+
+Функции, объявленные как Function Declaration, создаются сразу работающими, а переменные – равными undefined.
+alert("a" in window); // true,  т.к. есть свойство window.a
+alert(a); // равно undefined,  присваивание будет выполнено далее
+
+var a = 5;

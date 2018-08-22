@@ -1,0 +1,81 @@
+------------------------------------Object.defineProperty-----------------------------
+Object.defineProperty(obj, prop, descriptor)
+Аргументы:
+obj - Объект, в котором объявляется свойство.
+prop - Имя свойства, которое нужно объявить или модифицировать.
+descriptor Дескриптор – объект, который описывает поведение свойства.
+    В нём могут быть следующие поля:
+value – значение свойства; по умолчанию undefined.
+writable – значение свойства можно менять, если true. По умолчанию false.
+configurable – если true, то свойство можно удалять, а также менять его в дальнейшем при помощи новых вызовов defineProperty. По умолчанию false.
+enumerable – если true, то свойство просматривается в цикле for..in и методе Object.keys(). По умолчанию false.
+get – функция, которая возвращает значение свойства. По умолчанию undefined.
+set – функция, которая записывает значение свойства. По умолчанию undefined.
+
+    запрещено одновременно указывать значение value и функции get/set.
+    запрещено указывать writable при наличии get/set-функций.
+
+-------------------------------------------Св-во константа-----------------------------
+"use strict";
+var user = {};
+Object.defineProperty(user, "name", {
+  value: "Вася",
+  writable: false, // запретить присвоение "user.name="
+  configurable: false // запретить удаление "delete user.name"
+});
+
+------------------------------------------Геттер Сеттер----------------------------------------
+var user = {
+  firstName: "Вася",
+  surname: "Петров"
+}
+
+Object.defineProperty(user, "fullName", {
+
+  get: function() {
+    return this.firstName + ' ' + this.surname;
+  },
+
+  set: function(value) {
+      var split = value.split(' ');
+      this.firstName = split[0];
+      this.surname = split[1];
+    }
+});
+alert(user.fullName);
+user.fullName = "Петя Иванов";
+alert( user.firstName ); // Петя
+alert( user.surname ); // Иванов
+
+Вызов без аргументов - геттер, с аргументами - сеттер
+----------------------------------------------Указание get/set в литералах-----------------------------------
+var user = {
+  firstName: "Вася",
+  surname: "Петров",
+
+  get fullName() {
+    return this.firstName + ' ' + this.surname;
+  },
+
+  set fullName(value) {
+    var split = value.split(' ');
+    this.firstName = split[0];
+    this.surname = split[1];
+  }
+};
+
+alert( user.fullName ); // Вася Петров (из геттера)
+user.fullName = "Петя Иванов";
+alert( user.firstName ); // Петя  (поставил сеттер)
+alert( user.surname ); // Иванов (поставил сеттер)
+
+--------------------------------------------------Другие ф-ции----------------------------------------------
+Object.defineProperties(obj, descriptors) Позволяет объявить несколько свойств сразу.
+Object.keys(obj) возвращает только enumerable-свойства.
+Object.getOwnPropertyNames(obj) – возвращает все св-ва.
+Object.preventExtensions(obj) - Запрещает добавление свойств в объект.
+Object.seal(obj) - Запрещает добавление и удаление свойств, все текущие свойства делает configurable: false.
+Object.freeze(obj) - Запрещает добавление, удаление и изменение свойств, все текущие свойства делает configurable: false, writable: false.
+Object.isExtensible(obj) - Возвращает false, если добавление свойств объекта было запрещено вызовом метода Object.preventExtensions.
+Object.isSealed(obj) - Возвращает true, если добавление и удаление свойств объекта запрещено, и все текущие свойства являются configurable: false.
+Object.isFrozen(obj) - Возвращает true, если добавление, удаление и изменение свойств объекта запрещено, и все текущие свойства являются configurable: false, writable: false.
