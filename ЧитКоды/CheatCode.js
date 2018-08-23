@@ -79,3 +79,23 @@ alert( counter() ); // 3
 // создать другой счётчик, он будет независим от первого
 var counter2 = makeCounter();
 alert( counter2() ); // 1
+
+// Функция определения типа данных объекта
+function getClass(obj) {
+    return {}.toString.call(obj).slice(8, -1);
+}
+
+alert( getClass(new Date) ); // Date
+alert( getClass([1, 2, 3]) ); // Array
+alert( getClass(function(){}) ); // Function
+
+
+//---------------------------------------------Отлов ошибки ----------------------------------------------
+window.onerror = function(message, url, lineNumber) {
+    alert("Поймана ошибка, выпавшая в глобальную область!\n" +
+        "Сообщение: " + message + "\n(" + url + ":" + lineNumber + ")");
+};
+function readData() {
+    error(); // ой, что-то не так
+}
+readData();
