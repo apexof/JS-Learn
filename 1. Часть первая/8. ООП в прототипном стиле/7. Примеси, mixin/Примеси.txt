@@ -1,0 +1,27 @@
+Самый простой вариант примеси – это объект с полезными методами, которые мы просто копируем в нужный прототип.
+
+// примесь
+var sayHiMixin = {
+  sayHi: function() {
+    alert("Привет " + this.name);
+  },
+  sayBye: function() {
+    alert("Пока " + this.name);
+  }
+};
+
+// использование:
+function User(name) {
+  this.name = name;
+}
+
+// передать методы примеси
+for(var key in sayHiMixin) User.prototype[key] = sayHiMixin[key];
+
+// User "умеет" sayHi
+new User("Вася").sayHi(); // Привет Вася
+
+
+Как видно из примера, методы примеси активно используют this и предназначены именно для запуска в контексте «объекта-носителя примеси».
+
+
