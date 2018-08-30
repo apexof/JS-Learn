@@ -1,0 +1,11 @@
+Методы для создания узлов:
+    document.createElement(tag) – создает элемент
+    document.createTextNode(value) – создает текстовый узел
+    elem.cloneNode(deep) – клонирует элемент, если deep == true, то со всеми потомками, если false – без потомков.
+
+Вставка и удаление узлов:
+    parent.appendChild(elem)
+    parent.insertBefore(elem, nextSibling) если nextSibling === null, функция работает как appendChild
+    parent.removeChild(elem)
+    parent.replaceChild(newElem, elem)
+Все эти методы возвращают elem.

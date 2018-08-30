@@ -1,0 +1,3 @@
+parent.contains(child) - Возвращает true, если parent содержит child или parent == child.
+nodeA.compareDocumentPosition(nodeB) - Возвращаемое значение – битовая маска в 10ой системе
+    перевод в двоичную : alert( result.toString(2) ); // "10100"

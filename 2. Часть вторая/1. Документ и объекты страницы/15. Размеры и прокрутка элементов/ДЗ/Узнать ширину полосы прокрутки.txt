@@ -1,0 +1,2 @@
+offsetWidth - clientWidth - paddingLeft - paddingRight
+css width - clientWidth

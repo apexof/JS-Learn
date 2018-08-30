@@ -1,0 +1,27 @@
+--------------------------------------Добавление множества узлов---------------------------------------------
+elem.insertAdjacentHTML(where, html)
+elem.insertAdjacentElement(where, node)
+elem.insertAdjacentText(where, text)
+
+where :Куда по отношению к elem вставлять строку. Всего четыре варианта:
+1. `beforeBegin` -- перед `elem`.
+2. `afterBegin` -- внутрь `elem`, в самое начало.
+3. `beforeEnd` -- внутрь `elem`, в конец.
+4. `afterEnd` -- после `elem`.
+
+------------------------------- createDocumentFragment -------------------------------
+var fragment = document.createDocumentFragment();
+for (цикл по li) {
+  fragment.appendChild(list[i]); // вставить каждый LI в DocumentFragment
+}
+ul.appendChild(fragment); // вместо фрагмента вставятся элементы списка
+
+
+
+
+
+node.append(...nodes) – вставляет nodes в конец node,
+node.prepend(...nodes) – вставляет nodes в начало node,
+node.after(...nodes) – вставляет nodes после узла node,
+node.before(...nodes) – вставляет nodes перед узлом node,
+node.replaceWith(...nodes) – вставляет nodes вместо node.

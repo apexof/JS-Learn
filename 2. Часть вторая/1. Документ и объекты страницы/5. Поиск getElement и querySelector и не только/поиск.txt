@@ -1,0 +1,15 @@
+-----------------------------------------------Поиск---------------------------------------------
+1. поиск по id
+    1. id
+    2. window['id']
+    3. document.getElementById("id")
+2. elem.getElementsByTagName(tag)
+    -В отличие от getElementById, может искать внутри любого элемента.
+    -elem.getElementsByTagName('*'); -  получить всех потомков элемента elem
+    -Возвращается коллекция, а не элемент
+3. document.getElementsByName('name')
+4. elem.getElementsByClassName(className) - возвращает коллекцию элементов с классом className
+5. elem.querySelectorAll(css) - возвращает все элементы потомки elem, удовлетворяющие CSS-селектору css.
+6. elem.querySelector(css) - возвращает не все, а только первый элемент, соответствующий CSS-селектору css.
+7. elem.matches(css) - проверяет, удовлетворяет ли elem селектору css. Он возвращает true либо false.
+8. elem.closest(css) - ищет ближайший элемент выше по иерархии DOM, подходящий под CSS-селектор css. Сам элемент тоже включается в поиск.
