@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Заголовок</title>
+    <style>
+        body {
+            height: 3000px;
+        }
+        #my{
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+            right: 20px;
+            top: 20px;
+            background: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+<div id="my"></div>
+<script>
+    function getCoords(elem) { // кроме IE8-
+        var box = elem.getBoundingClientRect();
+
+        return {
+            top: box.top + pageYOffset,
+            left: box.left + pageXOffset
+        };
+    }
+
+    function getDocumentScroll(){
+        let my = document.getElementById("my");
+        let top = getCoords(my).top;
+        let bottom = getCoords(my).bottom;
+        return {
+            top: pageYOffset,
+            bottom: pageYOffset + my.getBoundingClientRect().bottom,
+            height: pageYOffset + document.body.bottom
+        };
+    }
+
+    getDocumentScroll();
+</script>
+</body>
+</html>

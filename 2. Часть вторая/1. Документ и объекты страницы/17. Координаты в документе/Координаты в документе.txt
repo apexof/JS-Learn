@@ -1,0 +1,42 @@
+У любой точки в браузере есть координаты:
+
+1. Относительно окна window – elem.getBoundingClientRect().
+2. Относительно документа document – добавляем прокрутку, во всех фреймворках есть готовая функция.
+    function getCoords(elem) { // кроме IE8-
+      var box = elem.getBoundingClientRect();
+
+      return {
+        top: box.top + pageYOffset,
+        left: box.left + pageXOffset
+      };
+
+    }
+    Если нужно поддерживать более старые IE, то вот альтернативный, самый кросс-браузерный вариант:
+        function getCoords(elem) {
+          // (1)
+          var box = elem.getBoundingClientRect();
+
+          var body = document.body;
+          var docEl = document.documentElement;
+
+          // (2)
+          var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+          var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+          // (3)
+          var clientTop = docEl.clientTop || body.clientTop || 0;
+          var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+          // (4)
+          var top = box.top + scrollTop - clientTop;
+          var left = box.left + scrollLeft - clientLeft;
+
+          return {
+            top: top,
+            left: left
+          };
+        }
+3. Относительно экрана screen – можно узнать координаты браузера, но не элемента. Размеры экрана хранятся в глобальной переменной screen:
+    screen.width и screen.height - общая ширина/высота
+    screen.availWidth и screen.availHeight - доступная ширина/высота (за вычетом таскбара и т.п.)
+    window.screenX и window.screenY - Координаты левого-верхнего угла браузера на экране (не поддерживаются IE8-):
