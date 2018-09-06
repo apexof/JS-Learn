@@ -10,8 +10,14 @@
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.24.7",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.0.0",
     "gulp-sass": "^4.0.1"
+  },
+  "dependencies": {
+    "gulp-eslint": "^5.0.0"
   }
 }
