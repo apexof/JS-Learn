@@ -1,0 +1,26 @@
+---------------------------------------------- отмена выделения ----------------------------------------------
+<div ondblclick="alert('Тест')" onselectstart="return false" onmousedown="return false">
+  Двойной клик сюда выведет "Тест", без выделения
+</div>
+При установке на родителя – все его потомки станут невыделяемыми
+
+--------------------------------------- Способ 2: снятие выделения пост-фактум ------------------------------------
+<ul>
+  <li ondblclick="clearSelection()">Выделение отменяется при двойном клике.</li>
+</ul>
+
+<script>
+  function clearSelection() {
+    if (window.getSelection) {
+      window.getSelection().removeAllRanges();
+    } else { // старый IE
+      document.selection.empty();
+    }
+  }
+</script>
+--------------------------------------- Способ 3: CSS свойство user-select ---------------------------------------
+  b {
+    -webkit-user-select: none;    /* user-select -- это нестандартное свойство */
+    -moz-user-select: none;   /* поэтому нужны префиксы */
+    -ms-user-select: none;
+  }

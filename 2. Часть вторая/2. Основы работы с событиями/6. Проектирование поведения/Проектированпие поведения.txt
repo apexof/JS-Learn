@@ -1,0 +1,11 @@
+Приём проектирования «поведение» состоит из двух частей:
+    1. Элементу ставится атрибут, описывающий его поведение.
+    2. При помощи делегирования ставится обработчик на ВЕСЬ документ, который ловит все клики и, если элемент имеет нужный атрибут, производит нужное действие.
+
+<button data-counter>2</button>
+
+  document.onclick = function(event) {
+    if (!event.target.hasAttribute('data-counter')) return;
+    var counter = event.target;
+    counter.innerHTML++;
+  };

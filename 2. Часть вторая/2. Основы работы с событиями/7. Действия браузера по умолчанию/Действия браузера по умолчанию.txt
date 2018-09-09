@@ -1,0 +1,19 @@
+Есть два способа отменить действие браузера:
+
+1. В обработчике onсобытие вернуть false
+    1. вернуть false можно тремя способами
+        1. <a href="/" onclick="return false">Нажми здесь</a>
+        2. menu.onclick = function(event) {
+             return false;
+           };
+        3. <a href="http://w3.org" onclick="return handler()">w3.org</a>
+            function handler() {
+               return false;
+            }
+    2. или event.preventDefault()
+2. В обработчике addEventListener
+    event.preventDefault()                      (IE8-: event.returnValue=false)
+
+
+HTML-разметка для кнопок или элементов меню делается так, что все элементы меню являются не кнопками, а ссылками, то есть тегами <a>.
+Это потому, что некоторые посетители очень любят сочетание «правый клик – открыть в новом окне». А это работает только на ссылках.
