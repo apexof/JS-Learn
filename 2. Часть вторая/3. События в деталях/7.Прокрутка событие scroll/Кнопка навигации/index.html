@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body,
+        html {
+            height: 100%;
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        #matrix {
+            width: 400px;
+            margin: auto;
+            overflow: auto;
+            text-align: justify;
+        }
+        #arrow {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            cursor: pointer;
+        }
+        .up::before{
+            content: '▲';
+            color: green;
+        }
+        .down::before{
+            content: '▼';
+            color: green;
+        }
+    </style>
+    <meta charset="utf-8">
+</head>
+
+<body>
+<div id="arrow"></div>
+ <!--▲ ▼-->
+
+<div id="matrix">
+    <script>
+      for (var i = 0; i < 2000; i++) document.writeln(i)
+    </script>
+</div>
+
+<script>
+    var scrll;
+    let arrow = document.getElementById('arrow');
+    const body = document.body;
+    body.onscroll = function (e){
+        if (pageYOffset > body.clientHeight){
+          arrow.className = 'up';
+        } else {
+          if(arrow.className === 'up') arrow.className = '';
+        }
+    };
+    arrow.onclick = function () {
+      if (arrow.className === 'up') {
+        scrll = pageYOffset;
+        scrollTo(0, 0);
+        arrow.className = 'down';
+      } else if (arrow.className === 'down'){
+        scrollTo(0, scrll);
+        arrow.className = 'up';
+      }
+
+    }
+
+
+</script>
+</body>
+
+</html>

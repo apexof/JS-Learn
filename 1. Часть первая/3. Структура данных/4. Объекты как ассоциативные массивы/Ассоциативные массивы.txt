@@ -24,13 +24,13 @@ menuSetup["title"] = 'Menu';
 delete person.age;
 
 ---------------------Проверка св-ва в объекте
-if ("name" in obj) { // такую проверку не обманешь искусственным гтвуаштув
+if ("name" in obj) { // такую проверку не обманешь искусственным undefined
   alert( "Свойство name существует!" );
 }
 
 или
 var person = {};
-alert( person.lalala ); // undefined, нет свойства с ключом lalala
+person.lalala === undefined // true, нет свойства с ключом lalala
 
 -------------------------Обращение к св-вам объекта
     через точку:
