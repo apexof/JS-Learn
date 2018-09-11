@@ -21,13 +21,12 @@ e.pageX и e.pageY - координаты курсора относительн�
 elementFromPoint(x, y) - метод получает координаты относительно окна и возвращает самый глубокий элемент, который там находится.
 elem.getBoundingClientRect() - координаты элемента относительно окна
 
-function getCoords(elem) { - координаты элемента относительно документа
-  var box = elem.getBoundingClientRect();
-  return {
-    top: box.top + pageYOffset,
-    left: box.left + pageXOffset
-  };
-}
+function getCoords(elem) {
+const box = elem.getBoundingClientRect();
+return {
+  top: box.top + window.pageYOffset,
+  left: box.left + window.pageXOffset
+};
 ------------------------------------------ Координаты относительно экрана --------------------------------------
 screen.width и screen.height - общая ширина/высота экрана
 screen.availWidth и screen.availHeight - доступная ширина/высота (за вычетом таскбара и т.п.)
