@@ -1,0 +1,20 @@
+document.forms[name/index] - получить Элементы FORM по имени или номеру
+form.elements[name/index] - получить Элементы конкретной формы по имени или номеру. Например document.forms.[0].elements[0]
+    если несколько элементов с одинаковым именем вернет коллекцию
+    Свойство elements также есть у элементов <fieldset>
+    можно короче form[index/name], но не рекомендуется
+element.form - хранит форму предка. Например document.forms.[0].elements[0].form
+
+select.options - если через form получили select, то его внутренние оptions  доступны так.
+    option.selected - выбрана ли опция. true/false
+    option.index - номер опции в списке селекта
+    option.text - Текстовое содержимое опции (то, что видит посетитель).
+
+
+
+Для большинства типов input значение ставится/читается через свойство value.
+Не используйте textarea.innerHTML
+Текущее «отмеченное» состояние для checkbox и radio находится в свойстве checked (true/false).
+Селект в JavaScript можно установить двумя путями:
+    1. поставив значение select.value,
+    2. установив свойство select.selectedIndex в номер нужной опции

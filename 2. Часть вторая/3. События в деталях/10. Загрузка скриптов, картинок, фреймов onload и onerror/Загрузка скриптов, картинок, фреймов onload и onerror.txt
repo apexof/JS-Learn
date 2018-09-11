@@ -1,0 +1,52 @@
+onload – если загрузка элемента (картинки, внешнего скрипта <iframe>, <link> (стиля)) успешна.
+onerror – если при загрузке произошла ошибка.
+
+
+
+----------------------------------------Загрузка скрипта IE8+ -------------------------------
+var script = document.createElement('script');
+script.src = "https://example.com/404.js"
+document.body.appendChild(script);
+
+script.onerror = function() {
+  alert( "Ошибка: " + this.src );
+};
+
+script.onload = function() {
+    // после выполнения скрипта становится доступна функция _
+    alert( _ ); // её код
+  }
+
+---------------------------------- Загрузка изображения -------------------------------------
+var img = document.createElement('img');
+img.onload = function() { alert("Успех " + this.src) };
+img.onerror = function() { alert("Ошибка " + this.src) };
+img.src = ...
+
+Изображения начинают загружаться сразу при создании, не нужно их для этого вставлять в HTML.
+
+
+---------------------------------------- Для кросс-браузерной обработки загрузки скрипта ------------------------------
+var script = document.createElement('script');
+script.src = "https://code.jquery.com/jquery.js";
+document.documentElement.appendChild(script);
+
+function afterLoad() {
+  alert( "Загрузка завершена: " + typeof(jQuery) );
+}
+
+script.onload = script.onerror = function() {
+  if (!this.executed) { // выполнится только один раз
+    this.executed = true;
+    afterLoad();
+  }
+};
+
+script.onreadystatechange = function() {
+  var self = this;
+  if (this.readyState == "complete" || this.readyState == "loaded") {
+    setTimeout(function() {
+      self.onload()
+    }, 0); // сохранить "this" для onload
+  }
+};
