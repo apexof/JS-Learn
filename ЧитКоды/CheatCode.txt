@@ -39,43 +39,10 @@ if ([].indexOf) {
     //code}
 }
 
-
-//Функция сортировки
-arr.sort(fn);
-function fn (a, b) {
-    return a - b; // сортировка по возрастанию, b-a по убыванию
-}
-//или
-function fn1(a, b) {
-    if (a > b) return 1;
-    if (a < b) return -1;
-}
-
 //join склеивает массив в строку
 new Array(4).join("ля"); // ляляля. Код для повторения симвоолов
 
-
-//////////////////////// Счетчик........
-function makeCounter() {
-    var currentCount = 1;
-
-    return function() { // (**)
-        return currentCount++;
-    };
-}
-
-var counter = makeCounter(); // (*)
-
-// каждый вызов увеличивает счётчик и возвращает результат
-alert( counter() ); // 1
-alert( counter() ); // 2
-alert( counter() ); // 3
-
-// создать другой счётчик, он будет независим от первого
-var counter2 = makeCounter();
-alert( counter2() ); // 1
-
-// Функция определения типа данных объекта
+// Функция определения типа данных объекта. Для встроенных. Для своих нужна утиная типизация.
 function getClass(obj) {
     return {}.toString.call(obj).slice(8, -1);
 }
@@ -107,9 +74,9 @@ for (var key in rabbit) { if (rabbit.hasOwnProperty(key)) {
 }}
 
 // ---------------------------------------Проверка переменной на ----------------------------------------------
-person.lalala === undefined; // проверка на undefined, явно присвоенный undefined обманет эту проверку
-person.lalala == undefined; // проверка на undefined и null, явно присвоенный undefined обманет эту проверку
+person.lalala === undefined; // проверка на undefined. Но явно присвоенный undefined обманет эту проверку
+person.lalala == undefined; // проверка на undefined и null. Но явно присвоенный undefined обманет эту проверку
 if ("name" in obj) - проверка на наличие св-ва в объекте, явно присвоенный undefined НЕ обманет эту проверку
-if(val) // Отсечь 0, "", NaN, null, undefined, false
-
+if(val) // Отсечь 0, "", NaN, null, undefined, false. Может быть ошибка если переменная не определена. См. ниже.
+if(window.val){} //  к несуществующему св-ву объекта можно обращаться
 
