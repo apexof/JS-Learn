@@ -76,6 +76,7 @@ form.elements[name/index] - получить элементы конкретно
     Свойство elements также есть у элементов <fieldset>
 element.form - хранит форму предка. Например document.forms.[0].elements[0].form
 
+select.selectedIndex - вернет индекс выбранного options. select.options[select.selectedIndex] - выбранный option.
 select.options - если через form получили select, то его внутренние оptions доступны так.
     option.selected - выбрана ли опция. true/false
     option.index - номер опции в списке селекта

@@ -5,6 +5,7 @@ form.elements[name/index] - получить Элементы конкретно
     можно короче form[index/name], но не рекомендуется
 element.form - хранит форму предка. Например document.forms.[0].elements[0].form
 
+select.selectedIndex - вернет индекс выбранного options. select.options[select.selectedIndex] - выбранный option.
 select.options - если через form получили select, то его внутренние оptions  доступны так.
     option.selected - выбрана ли опция. true/false
     option.index - номер опции в списке селекта

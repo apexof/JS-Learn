@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        #mouse {
+            display: inline-block;
+            cursor: pointer;
+            margin: 0;
+            position: fixed;
+        }
+
+        #mouse:focus {
+            outline: 1px dashed black;
+        }
+    </style>
+</head>
+<body>
+<p>Кликните на мышонка и передвигайте его, нажимая клавиши со стрелками.</p>
+<pre id="mouse" tabindex="1">
+ _   _
+(q\_/p)
+ /. .\
+=\_t_/=   __
+ /   \   (
+((   ))   )
+/\) (/\  /
+\  Y  /-'
+ nn^nn
+</pre>
+    <script>
+    let mouse = document.getElementById('mouse');
+    const width = parseInt(getComputedStyle(mouse).width);
+    const height = parseInt(getComputedStyle(mouse).height);
+    let moove = {
+      37: {
+        dir: 'left',
+        cord: -width
+      },
+      38: {
+        dir: 'top',
+        cord: -height
+      },
+      39: {
+        dir: 'left',
+        cord: width
+      },
+      40: {
+        dir: 'top',
+        cord: height
+      }
+    };
+
+    mouse.onkeydown = function (e) {
+      let dir = moove[e.keyCode].dir;
+      let currentPos = parseInt(getComputedStyle(mouse)[dir]);
+      mouse.style[dir] = currentPos + moove[e.keyCode].cord + 'px';
+    };
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Заголовок</title>
+</head>
+<body>
+<form>
+    <label for="music"></label>
+    <select id="music" name="music">
+        <option value="Rock">Рок</option>
+        <option value="Blues" selected>Блюз</option>
+    </select>
+</form>
+
+
+    <script>
+        let form = document.getElementsByTagName('form')[0];
+        let select = form.elements['music'];
+
+        for (let i = 0; i < select.options.length; i++) {
+          const option = select.options[i];
+          if (option.selected === true) {
+            option.selected = false;
+          }
+        }
+
+        // let option = document.createElement('option');
+        // option.value = 'Classic';
+        // option.innerHTML = 'Классика';
+        // select.appendChild(option);
+        // option.selected = true;
+        console.log(select);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        td select,
+        td input {
+            width: 150px;
+        }
+
+        #diagram td {
+            vertical-align: bottom;
+            text-align: center;
+            padding: 10px;
+        }
+
+        #diagram div {
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+Калькулятор процентов, из расчёта 12% годовых.
+<form name="calculator">
+    <table>
+        <tr>
+            <td>Сумма</td>
+            <td>
+                <input name="money" type="text" value="10000">
+            </td>
+        </tr>
+        <tr>
+            <td>Срок в месяцах</td>
+            <td>
+                <select name="months">
+                    <option value="3">3 (минимум)</option>
+                    <option value="6">6 (полгода)</option>
+                    <option value="12" selected>12 (год)</option>
+                    <option value="18">18 (1.5 года)</option>
+                    <option value="24">24 (2 года)</option>
+                    <option value="30">30 (2.5 года)</option>
+                    <option value="36">36 (3 года)</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>С капитализацией</td>
+            <td>
+                <input name="capitalization" type="checkbox">
+            </td>
+        </tr>
+    </table>
+
+
+</form>
+
+<table id="diagram">
+    <tr>
+        <th>Было:</th>
+        <th>Станет:</th>
+    </tr>
+    <tr>
+        <th id="money-before"></th>
+        <th id="money-after"></th>
+    </tr>
+    <tr>
+        <td>
+            <div style="background: red;width:40px;height:100px" id="height-before"></div>
+        </td>
+        <td>
+            <div style="background: green;width:40px;height:0" id="height-after"></div>
+        </td>
+    </tr>
+</table>
+
+<script>
+  // вспомогательная функция для получения символа из события keypress
+  // (вдруг понадобится))
+  let countMounth, coef;
+  const percOfYear = 12;
+
+  let money = document.querySelector('[name="money"]');
+  let select = document.querySelector('select[name="months"]');
+  let mb = document.getElementById('money-before');
+  let ma = document.getElementById('money-after');
+  let heightBefore = parseInt(getComputedStyle(document.getElementById('height-before')).height);
+  let heightAfter = document.getElementById('height-after');
+
+
+  window.onload = money.oninput = (e) => {
+    mb.innerHTML = money.value;
+    ma.innerHTML = calc();
+  };
+
+  select.onchange = () => {
+    ma.innerHTML = calc();
+  };
+
+  function calc (){
+    countMounth = select.options[select.selectedIndex].value;
+    coef = 1 + (percOfYear/12 * countMounth/100);
+    heightAfter.style.height = heightBefore * coef + 'px';
+    return Math.round(money.value * coef);
+  }
+
+  money.onkeypress = (e) => {
+    if( !isNumeric(e.key) ) {
+      e.preventDefault();
+    }
+  };
+
+  function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+  }
+
+</script>
+</body>
+</html>
