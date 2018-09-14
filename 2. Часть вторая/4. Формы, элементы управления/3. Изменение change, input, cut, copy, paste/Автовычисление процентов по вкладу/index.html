@@ -93,7 +93,7 @@
   };
 
   select.onchange = () => {
-    ma.innerHTML = calc();
+    ma.innerHTML = compoundInterest();
   };
 
   function calc (){
@@ -112,6 +112,15 @@
   function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
   }
+
+  function compoundInterest() {
+    let base = 1 + percOfYear/100/12;
+    let exponent = select.options[select.selectedIndex].value;
+    let result = Math.round(money.value * Math.pow(base, exponent));
+    return result;
+  }
+
+
 
 </script>
 </body>

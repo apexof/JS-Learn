@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        #prompt-form {
+            display: inline-block;
+            padding: 5px 5px 5px 70px;
+            width: 200px;
+            border: 1px solid black;
+            background: white url(https://js.cx/clipart/prompt.png) no-repeat left 5px;
+            vertical-align: middle;
+        }
+        #prompt-form-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            display: none;
+        }
+        #prompt-form-container:before {
+            display: inline-block;
+            height: 100%;
+            content: '';
+            vertical-align: middle;
+            z-index: 101;
+        }
+        #prompt-form input[name="text"] {
+            display: block;
+            margin: 5px;
+            width: 180px;
+        }
+        #modal {
+            position: fixed;
+            left: 5px;
+            right: 5px;
+            top: 5px;
+            bottom: 5px;
+            z-index: 100;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="modal" tabindex="-1"></div>
+    <input type="button" value="Нажмите для показа формы ввода" id="show-button">
+    <div id="prompt-form-container">
+        <form id="prompt-form">
+            <div id="prompt-message">Введите, пожалуйста...
+                <br>Что-то..</div>
+            <input name="text" type="text">
+            <input type="submit" value="Ок">
+            <input type="button" name="cancel" value="Отмена">
+        </form>
+    </div>
+
+    <script>
+
+        let showButton = document.getElementById('show-button');
+        let container = document.getElementById('prompt-form-container');
+        let modal = document.getElementById('modal');
+        let message = document.getElementById('prompt-message');
+        let ok = document.querySelector('input[value="Ок"]');
+        let cancel = document.querySelector('input[name="cancel"]');
+        let inputText = document.querySelector('input[name="text"]');
+        showButton.onclick = () => {
+          showPrompt('Пиши, крутан', show);
+        };
+        function showPrompt(text, callback) {
+          message.innerHTML = text;
+          modal.style.display = 'block';
+          container.style.display = 'block';
+          inputText.focus();
+          ok.onclick = () => {
+            callback(inputText.value);
+          };
+          cancel.onclick = () => {
+            callback(null);
+          };
+          document.onkeydown = function (e) {
+            if(e.keyCode === 27){
+              callback(null);
+            }
+          }
+        }
+
+        function show(text) {
+          if (!text){
+            inputText.value = '';
+            container.style.display = 'none';
+            return;
+          }
+          alert('Вы ввели: ' + text);
+        }
+    </script>
+
+</body>
+</html>
