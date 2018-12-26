@@ -1,0 +1,26 @@
+Запрос на другой домен отсылается просто указанием соответствующего URL в open.
+Он обязательно должен быть асинхронным, в остальном – никаких особенностей.
+
+Заголовки для отправки кроссдоменного запроса
+    GET /request
+    Host:anywhere.com
+    Origin:http://javascript.ru // это браузер дописывает сам
+
+Ответ сервера на другом домене должен быть таким:
+    HTTP/1.1 200 OK
+    Content-Type:text/html; charset=UTF-8
+    Access-Control-Allow-Origin: http://javascript.ru
+
+При таких запросах не передаются куки и заголовки HTTP-авторизации.
+Параметры user и password в методе open игнорируются.
+
+
+-------------------------------------------- Запросы от имени пользователя ----------------------------------------
+Чтобы браузер передал вместе с запросом куки и HTTP-авторизацию, нужно поставить запросу xhr.withCredentials = true:
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.open('POST', 'http://anywhere.com/request', true)
+для запросов с withCredentials предусмотрено дополнительное подтверждение со стороны сервера.
+При запросе с withCredentials сервер должен вернуть уже не один, а два заголовка:
+    Access-Control-Allow-Origin: домен
+    Access-Control-Allow-Credentials: true

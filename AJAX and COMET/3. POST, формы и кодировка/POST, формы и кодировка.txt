@@ -1,0 +1,92 @@
+1. Get
+    urlencoded
+2. Post
+    Формы
+        application/x-www-form-urlencoded
+        multipart/form-data
+        text-plain
+    XHR
+        application/x-www-form-urlencoded
+        multipart/form-data
+        'application/json; charset=utf-8'
+Кодировка укказывается в Content-Type
+-------------------------------------- Кодировки для GET-запроса ---------------------------------------
+urlencoded  - name=%D0%92%D0%B8%D0%BA%D1%82%D0%BE%D1%80&surname=%D0%A6%D0%BE%D0%B9.
+    при отправке формы с GET запросом браузер сам кодирует.
+    Все символы, кроме английских букв, цифр и - _ . ! ~ * ' ( ) заменяются на их цифровой код в UTF-8 со знаком %.
+    При отправке данных через XMLHttpRequest, это нужно делать самим, в JS-коде.
+        alert( encodeURIComponent('Виктор') ); // %D0%92%D0%B8%D0%BA%D1%82%D0%BE%D1%80
+
+Пример запроса
+    var xhr = new XMLHttpRequest();
+    var params = 'name=' + encodeURIComponent(name) +
+      '&surname=' + encodeURIComponent(surname);
+    xhr.open("GET", '/submit?' + params, true);
+    xhr.onreadystatechange = ...;
+    xhr.send();
+
+-------------------------------------- Кодировки для POST-запроса ---------------------------------------
+В стандартных HTTP-формах для метода POST доступны три кодировки, задаваемые через атрибут enctype.
+Для XMLHttpRequest проще всего выбрать какую-то из них
+
+---------------------------------1. application/x-www-form-urlencoded
+    var xhr = new XMLHttpRequest();
+    var body = 'name=' + encodeURIComponent(name) +
+      '&surname=' + encodeURIComponent(surname);
+    xhr.open("POST", '/submit', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = ...;
+    xhr.send(body);
+----------------------------------------2. multipart/form-data пересылка файлов
+1. Отправка формы:
+    <form action="/submit" method="POST" enctype="multipart/form-data">
+      <input name="name" value="Виктор">
+      <input name="surname" value="Цой">
+    </form>
+2. XMLHttpRequest.
+    var data = { name: 'Виктор', surname: 'Цой' };
+    var boundary = String(Math.random()).slice(2);
+    var boundaryMiddle = '--' + boundary + '\r\n';
+    var boundaryLast = '--' + boundary + '--\r\n'
+    var body = ['\r\n'];
+    for (var key in data) {
+      body.push('Content-Disposition: form-data; name="' + key + '"\r\n\r\n' + data[key] + '\r\n'); // добавление поля
+    }
+    body = body.join(boundaryMiddle) + boundaryLast;
+    var xhr = new XMLHttpRequest(); // Тело запроса готово, отправляем
+    xhr.open('POST', '/submit', true);
+    xhr.setRequestHeader('Content-Type', 'multipart/form-data; boundary=' + boundary);
+    xhr.onreadystatechange = function() {
+      if (this.readyState != 4) return;
+      alert( this.responseText );
+    }
+    xhr.send(body);
+Можно создать запрос, который сервер воспримет как загрузку файла.
+    Content-Disposition: form-data; name="myfile"; filename="pic.jpg"
+    Content-Type: image/jpeg
+    (пустая строка)
+    содержимое файла
+FormData
+    <form name="person">
+      <input name="name" value="Виктор">
+      <input name="surname" value="Цой">
+    </form>
+    <script>
+      var formData = new FormData(document.forms.person);       // создать объект для формы
+      formData.append("patronym", "Робертович");       // добавить к пересылке ещё пару ключ - значение
+      var xhr = new XMLHttpRequest();     // отослать
+      xhr.open("POST", "/url");
+      xhr.send(formData);
+    </script>
+-----------------------------------------------3. JSON
+var xhr = new XMLHttpRequest();
+var json = JSON.stringify({
+  name: "Виктор",
+  surname: "Цой"
+});
+xhr.open("POST", '/submit', true)
+xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+xhr.onreadystatechange = ...;
+// Отсылаем объект в формате JSON и с Content-Type application/json
+// Сервер должен уметь такой Content-Type принимать и раскодировать
+xhr.send(json);

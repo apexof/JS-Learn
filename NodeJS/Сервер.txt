@@ -1,0 +1,17 @@
+-------------------Способ 1
+const http = require('http');
+const server = new http.Server();
+
+server.listen(1337, '127.0.0.1')
+
+
+server.on('request', function(req, res){
+  res.end('Приве');
+});
+-------------------Способ 2
+
+const http = require('http');
+
+http.createServer(function(req, res){
+  res.end('123123');
+}).listen(1336);

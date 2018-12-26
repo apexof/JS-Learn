@@ -29,9 +29,14 @@ const func4 = (a, b) => {
 const obj = {
   name: function () {
     this.name();
-  },
-  func2(a, b) {
-    return a + b;
+  }
+};
+
+// метод объекта
+const obj = {
+  __proto__: animal,
+  walk() {
+    alert(super.walk); // через super можно подучить доступ к методу его прототипа.
   }
 };
 
@@ -56,3 +61,7 @@ function Animal(beast) {
 }
 const animal = new Animal('ёжик');
 console.log(animal.name); // ёжик
+
+
+
+

@@ -1,0 +1,47 @@
+var xhr = new XMLHttpRequest() - Создаём новый объект XMLHttpRequest
+    в IE9 - XDomainRequest. Кроссбраузерно:
+        var XHR = ("onload" in new XMLHttpRequest()) ? XMLHttpRequest : XDomainRequest;
+        var xhr = new XHR();
+xhr.open(method, URL, async, user, password) -   Конфигурируем. Вызов open не открывает соединение. Он лишь настраивает запрос, а коммуникация инициируется методом send.
+    method: GET, POST, TRACE/DELETE/PUT и т.п.
+    URL: http, https, ftp://, file://.
+    async: true/ false
+    user, password – логин и пароль для HTTP-авторизации, если нужны.
+xhr.send([body]) -  Отсылаем запрос. В body находится тело запроса. у GET-запросов тела нет, а у POST – там основные данные.
+xhr.abort()  - прерывает выполнение запроса.
+xhr.status - HTTP-код ответа: 200, 404, 403 и так далее. Может быть также равен 0, если сервер не ответил или при запросе на другой домен.
+xhr.statusText - Текстовое описание статуса от сервера: OK, Not Found, Forbidden
+xhr.responseText - Текст ответа сервера. используется гораздо реже, чем:
+xhr.responseXML - Текст ответа сервера в виде XML или JSON
+    Если сервер вернул XML, снабдив его правильным заголовком Content-type: text/xml, то браузер создаст из него XML-документ. По нему можно будет делать запросы xhr.responseXml.querySelector("...") и другие.
+    Если сервер возвращает JSON в виде текста, браузер превращает его в объект вызовом JSON.parse(xhr.responseText).
+xhr.readyState - свойство показывает «текущее состояние запроса»
+    const unsigned short UNSENT = 0;                // начальное состояние
+    const unsigned short OPENED = 1;                // вызван open
+    const unsigned short HEADERS_RECEIVED = 2;      // получены заголовки
+    const unsigned short LOADING = 3;               // загружается тело (получен очередной пакет данных). повторяется при каждом получении очередного пакета данных по сети.
+    const unsigned short DONE = 4;                  // запрос завершён
+HTTP-заголовки
+    xgr.setRequestHeader(name, value) - Устанавливает заголовок name запроса со значением value.
+        Нельзя установить заголовки, которые контролирует браузер, например Referer или Host
+        Поставленный заголовок нельзя снять. Повторные вызовы лишь добавляют информацию к заголовку, например:
+    xgr.getResponseHeader(name) - Возвращает значение заголовка ответа name, кроме Set-Cookie и Set-Cookie2.
+    xgr.getAllResponseHeaders() - Возвращает все заголовки ответа, кроме Set-Cookie и Set-Cookie2.
+        Заголовки возвращаются в виде единой строки разделенной "\r\n"
+xhr.timeout - св-во задает максимальную продолжительность асинхронного запроса.
+    При превышении этого времени запрос будет оборван и сгенерировано событие ontimeout.  xhr.ontimeout = function() {  }
+-------------------------------------------------- События  --------------------------------------------------
+xhr.onreadystatechange - устаревшее событие, в нем ждем ответ сервера, обрабатываем ошибки итп.
+loadstart – запрос начат.
+progress – браузер получил очередной пакет данных, можно прочитать текущие полученные данные в responseText.
+abort – запрос был отменён вызовом xhr.abort().
+error – произошла ошибка.
+load – запрос был успешно (без ошибок) завершён.
+timeout – запрос был прекращён по таймауту.
+loadend – запрос был завершён (успешно или неуспешно)
+
+
+
+
+
+
